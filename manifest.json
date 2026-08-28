@@ -1,0 +1,26 @@
+{
+  "name": "邊玩邊變強",
+  "short_name": "邊玩邊變強",
+  "description": "九九乘法、加減法、注音符號與英文字母的答題闖關遊戲，一個大廳加七個小遊戲",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#120b1c",
+  "theme_color": "#120b1c",
+  "lang": "zh-Hant",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
