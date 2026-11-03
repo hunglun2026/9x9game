@@ -199,6 +199,10 @@ body{padding-bottom:16px}
 .field.cam1{animation:impactCam .3s cubic-bezier(.36,.07,.19,.97)}
 .field.cam2{animation:impactCamMid .38s cubic-bezier(.36,.07,.19,.97)}
 .field.cam3{animation:impactCamHeavy .46s cubic-bezier(.36,.07,.19,.97)}
+/* 系統設定開了「減少動畫」（暈眩、癲癇敏感的人）就不震畫面，其餘特效照常 */
+@media (prefers-reduced-motion:reduce){
+  .field.cam1,.field.cam2,.field.cam3{animation:none}
+}
 @keyframes impactCam{
   0%{transform:none}
   10%{transform:translate(7px,-5px)}
@@ -800,6 +804,8 @@ body.lowfx .shard{animation-duration:.35s}
   padding:5px 10px;font-size:12px;line-height:1.7;color:var(--dim);
 }
 body.playing .combatLog{display:block}
+/* 矮螢幕（小手機）把訊息框縮矮，答案區才不會被擠到畫面外（2026-11-03） */
+@media (max-height:700px){ .combatLog{height:46px} }
 .combatLog .ln{opacity:0;animation:logIn .25s ease-out forwards}
 @keyframes logIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .combatLog .ln b{font-weight:800}
@@ -1330,6 +1336,17 @@ body.playing .combat{display:flex}
 }
 .skillsToggle:active{transform:translateY(1px)}
 
+/* 2026-11-03 手機版：打怪中右下角的「音量／鎖定縮放」浮動鈕會蓋住答案鈕與必殺技鈕、
+   小朋友容易誤觸，所以戰鬥進行中先收起來，暫停（body.paused）或還沒開打時才出現。
+   這兩顆是 assets/audio.js、lock.js 動態插進來的（z-index:60），所以用 !important 壓過。
+   寬螢幕（≥900px）本來就不會擋到答案，維持原樣。 */
+@media (max-width:899px){
+  body.playing:not(.paused) .audiobtn,
+  body.playing:not(.paused) .zoomlock,
+  body.playing:not(.paused) .zoomtip,
+  body.playing:not(.paused) #audioPanel{display:none !important}
+}
+
 @media (max-width:520px){
   body{padding-bottom:96px}
   .topbar{gap:5px;flex-wrap:wrap}
@@ -1688,7 +1705,7 @@ body.playing .combat{display:flex}
   </div>
 </div>
 
-<script src="assets/common.js?v=20261103a"></script>
+<script src="assets/common.js?v=20261103b"></script>
 <script>Topic.lang = true;   /* 這一頁做得起注音／字母題（2026-08-27） */</script>
 <script>
 /* 2026-08-30：這幾隻只有攻擊逐幀、沒有待機逐幀（SPR 字典本身要到後面才宣告，
